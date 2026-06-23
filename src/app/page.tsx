@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sidebar } from '../components/Sidebar';
-import { AuthFlow } from '../components/AuthFlow';
 import { Dashboard } from '../views/Dashboard';
 import { FoodLog } from '../views/FoodLog';
 import { AIAssistant } from '../views/AIAssistant';
@@ -16,7 +15,7 @@ type Page = 'dashboard' | 'food-log' | 'analytics' | 'meal-planner' | 'recipes' 
 export default function NutritionApp() {
   const [currentPage, setCurrentPage] = useState<Page>('dashboard');
   const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<any>({ name: 'Guest', email: 'guest@example.com' });
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
@@ -39,10 +38,6 @@ export default function NutritionApp() {
     };
     return pages[currentPage];
   };
-
-  if (!user) {
-    return <AuthFlow onAuthSuccess={setUser} />;
-  }
 
   return (
     <div className={`h-screen flex overflow-hidden ${darkMode ? 'dark bg-gray-950' : 'bg-gray-50'}`}>
